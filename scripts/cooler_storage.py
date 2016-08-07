@@ -35,13 +35,16 @@ def main():
     # Build "index"
     t1 = time.time()
     chromsizes = chromsizes.loc['chrX':'chrX']
+    chroms = ['chrX']
+    lengths = [chromsizes['chrX']]
     binsize = 5000
-    bins = cooler.make_bintable(chromsizes, binsize)
-    reader = cooler.io.SparseLoader(infilepath)
+    bins = cooler.binnify(chromsizes, binsize)
+    chunksize = 10000000
+    reader = cooler.io.SparseLoader(infilepath, chunksize)
 
     with h5py.File(outfilepath, 'w') as h5:
         h5opts = dict(compression='gzip', compression_opts=6)
-        cooler.io.create(h5, chromsizes, bins, reader, binsize, h5opts=h5opts)
+        cooler.io.create(h5, chroms, lengths, bins, reader, binsize, h5opts=h5opts)
 
     c = cooler.Cooler(outfilepath)
     matrix = c.matrix()
@@ -110,10 +113,11 @@ def main():
     t5 = time.time()
     print("Time slicing across second dimension: {:.2f} seconds (per query): {:.2f} seconds".format(t5 - t4, (t5 - t4) / args.iterations))
 
+    selected_points = []
     for i in range(args.iterations):
-        pix = c.pixeltable()[:]
-        pix = pix[pix.bin1_id == pix.bin2_id]
-        selected_points = list(zip(pix['bin1_id'], pix['bin2_id'], pix['count']))
+        for pix in c.pixels().iterchunks(size=100000):
+            diag = pix[pix.bin1_id == pix.bin2_id]
+            selected_points.extend( list(zip(diag['bin1_id'], diag['bin2_id'], diag['count'])) )
 
     t6 = time.time()
     print("Time slicing across the diagonal: {:.2f} seconds (per query): {:.2f} seconds".format(t6 - t5, (t6 - t5) / args.iterations))
@@ -121,8 +125,9 @@ def main():
 
     # Dump
     print("Size of index: {} bytes".format(op.getsize(outfilepath)))
-    pix = c.pixeltable()[:]
-    pix.to_csv('/tmp/tmp.tsv', sep='\t', index=False)
+    with open('/tmp/tmp.tsv', 'wt') as f:
+        for pix in c.pixels().iterchunks(size=100000):
+            pix.to_csv(f, sep='\t', index=False, header=False)
     print("Time outputting the index: {:.2f}".format(time.time() - t6))
     print("Size of output: {} bytes".format(op.getsize('/tmp/tmp.tsv')))
 

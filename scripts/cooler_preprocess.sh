@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Lexsort input pixels (assumes 3 column file: bin1, bin2, count)
+# Lexically sort input pixels (assumes 3 column file: bin1, bin2, count)
 
 INNAME=$1
 OUTNAME=${INNAME/.tsv.gz/.3col.sorted.tsv.gz}
