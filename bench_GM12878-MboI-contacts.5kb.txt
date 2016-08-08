@@ -1,0 +1,86 @@
+chroms
+bins
+pixels
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+X
+Y
+MT
+indexes
+info
+Time creating index: 8122.808 seconds
+variance is 1653506.80895
+variance is 66084.1911038
+variance is 28450.5777026
+variance is 13861.0874957
+variance is 7030.95670131
+variance is 3591.19408541
+variance is 1906.39235302
+variance is 1014.66197617
+variance is 549.843660596
+variance is 300.775816466
+variance is 165.380444503
+variance is 92.0766484594
+variance is 51.2518220702
+variance is 28.876586794
+variance is 16.2426685341
+variance is 9.23083579225
+variance is 5.23824610971
+variance is 2.99689035756
+variance is 1.71318389936
+variance is 0.98548673236
+variance is 0.566797123099
+variance is 0.327539574487
+variance is 0.189340548923
+variance is 0.10984835724
+variance is 0.0637716532878
+variance is 0.037125883662
+variance is 0.0216317397453
+variance is 0.0126318390335
+variance is 0.00738323118543
+variance is 0.004323191147
+variance is 0.0025338368186
+variance is 0.00148730158773
+variance is 0.000873836235671
+variance is 0.000514055847779
+variance is 0.000302681394646
+variance is 0.000178417541354
+variance is 0.000105260162129
+variance is 6.21599672473e-05
+variance is 3.67374973574e-05
+variance is 2.17312230564e-05
+variance is 1.28643508054e-05
+variance is 7.62133879873e-06
+Time for normalization (cis and trans): 606.473 seconds
+max_x: 619150
+max_y: 619150
+Time performing range queries (256x256): 0.080 seconds (per query): 0.008 seconds
+Time performing range queries (256x256) with balancing: 0.102 seconds (per query): 0.010 seconds
+Time performing range queries (2048 x 2048): 0.555 seconds (per query): 0.055 seconds
+Time performing range queries (2048 x 2048) with balancing: 0.514 seconds (per query): 0.051 seconds
+Time slicing across first dimension: 92.974 seconds (per query): 9.297 seconds
+Time slicing across second dimension: 62.227 seconds (per query): 6.223 seconds
+Time slicing across the diagonal: 130.691 seconds (per query): 13.069 seconds
+Size of index: 620854863 bytes
+Time outputting the index: 518.538
+Size of output: 3976117533 bytes

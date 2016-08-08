@@ -1,0 +1,84 @@
+chroms
+bins
+pixels
+indexes
+info
+Time creating index: 22.215 seconds
+variance is 1201936.04736
+variance is 187680.67817
+variance is 75263.1500465
+variance is 30162.5796621
+variance is 15387.0765779
+variance is 7776.39876526
+variance is 4652.78350757
+variance is 2798.29233077
+variance is 1836.23201658
+variance is 1212.74395024
+variance is 832.346343449
+variance is 573.179743907
+variance is 401.337878922
+variance is 281.271875247
+variance is 198.667585605
+variance is 140.277298827
+variance is 99.4588906624
+variance is 70.4613009565
+variance is 50.0424875823
+variance is 35.5088127683
+variance is 25.2376013376
+variance is 17.9225982349
+variance is 12.7424440069
+variance is 9.05322398351
+variance is 6.43741194982
+variance is 4.57487367467
+variance is 3.2531621344
+variance is 2.31231364257
+variance is 1.64427899552
+variance is 1.16886397848
+variance is 0.831167269717
+variance is 0.590892398852
+variance is 0.42017152918
+variance is 0.298722455504
+variance is 0.212412413815
+variance is 0.151020421587
+variance is 0.107384675894
+variance is 0.0763498344862
+variance is 0.054288812032
+variance is 0.0385996220758
+variance is 0.0274461761058
+variance is 0.0195145873649
+variance is 0.0138757200971
+variance is 0.00986589327327
+variance is 0.00701504708129
+variance is 0.00498785498154
+variance is 0.00354655357024
+variance is 0.00252168825386
+variance is 0.00179301126876
+variance is 0.0012748792239
+variance is 0.000906483443242
+variance is 0.000644535305752
+variance is 0.000458286399789
+variance is 0.000325854989751
+variance is 0.000231693695677
+variance is 0.000164741124395
+variance is 0.000117136317531
+variance is 8.32874680614e-05
+variance is 5.92200793034e-05
+variance is 4.21072887263e-05
+variance is 2.99396313133e-05
+variance is 2.12880010761e-05
+variance is 1.51364469115e-05
+variance is 1.07624829867e-05
+variance is 7.65246684839e-06
+Time for normalization (cis and trans): 137.694 seconds
+max_x: 31055
+max_y: 31055
+Time performing range queries (256x256): 1.482 seconds (per query): 0.015 seconds
+Time performing range queries (256x256) with balancing: 1.276 seconds (per query): 0.013 seconds
+Time performing range queries (2048 x 2048): 16.431 seconds (per query): 0.164 seconds
+Time performing range queries (2048 x 2048) with balancing: 15.446 seconds (per query): 0.154 seconds
+Time slicing across first dimension: 70.264 seconds (per query): 0.703 seconds
+Time slicing across second dimension: 62.465 seconds (per query): 0.625 seconds
+Time slicing across the diagonal: 135.641 seconds (per query): 1.356 seconds
+Size of index: 50172014 bytes
+Time outputting the index: 51.472
+Size of output: 339839594 bytes
