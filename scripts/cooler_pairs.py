@@ -4,6 +4,7 @@ import os.path as op
 import random
 import sys
 import time
+import six
 import argparse
 
 import numpy as np
@@ -25,26 +26,22 @@ def main():
                                         help="The number of times to run the range query", type=int)
     args = parser.parse_args()
     infilepath = args.matrix_tsv[0]
-    outfilepath = op.join(op.dirname(infilepath), 'test.cool')
-
-
-    # Fetch hg19 chromsizes from UCSC
-    chromsizes = cooler.read_chromsizes('http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/chromInfo.txt.gz')
+    outfilepath = op.join(op.dirname(infilepath), 'test-pairs.cool')
 
 
     # Build "index"
     t1 = time.time()
-    chromsizes = chromsizes.loc['chrX':'chrX']
-    chroms = ['chrX']
-    lengths = [chromsizes['chrX']]
-    binsize = 5000
-    bins = cooler.binnify(chromsizes, binsize)
-    chunksize = 10000000
-    reader = cooler.io.SparseLoader(infilepath, chunksize)
+    # Bin table
+    chromsizes = cooler.read_chromsizes('test/data/b37.chrom.sizes',
+        name_patterns=[r'^[0-9]+$', r'^[XY]$', r'^MT$'])
+    bins = pd.read_csv(args['bins'], sep='\t', names=['chrom', 'start', 'end'], dtype={'chrom': str})
+    chroms, lengths = list(six.iteritems(chromsizes))
 
+    # Load the binned contacts
+    chunksize = int(100e6)
+    reader = cooler.io.TabixAggregator(infilepath, chromsizes, bins)
     with h5py.File(outfilepath, 'w') as h5:
-        h5opts = dict(compression='gzip', compression_opts=6)
-        cooler.io.create(h5, chroms, lengths, bins, reader, binsize, h5opts=h5opts)
+        cooler.io.create(h5, chroms, lengths, bins, reader, assembly='b37') # metadata, assembly)
 
     c = cooler.Cooler(outfilepath)
     matrix = c.matrix()
@@ -58,7 +55,7 @@ def main():
 
     with h5py.File(outfilepath, 'r+') as h5, Pool(N_CPUS) as pool:
         bias = ice.iterative_correction(
-            h5, chunksize=chunksize, tol=1e-05, min_nnz=10,
+            h5, chunksize=chunksize, tol=1e-05, mad_max=3,
             cis_only=False, ignore_diags=3, map=pool.map)
 
         h5opts = dict(compression='gzip', compression_opts=6)
